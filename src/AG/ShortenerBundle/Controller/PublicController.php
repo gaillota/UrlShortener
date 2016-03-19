@@ -43,7 +43,7 @@ class PublicController extends Controller
 
             return array(
                 'form' => $form->createView(),
-                'shortenedUrl' => $this->generateUrl('ag_shortener_redirect', array('token' => $link->getToken()), UrlGeneratorInterface::ABSOLUTE_URL)
+                'link' => $link
             );
         }
 

@@ -13,13 +13,13 @@
         <div class="col-md-6">
             {{ form(form) }}
         </div>
-        {% if shortenedUrl is defined %}
+        {% if link is defined %}
             <div class="col-md-6 col-xs-12">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label for="short" class="control-label">Lien raccourci</label>
-                            <input id="short" type="text" class="form-control" readonly="readonly" value="{{ shortenedUrl }}">
+                            <input id="short" type="text" class="form-control" readonly="readonly" value="{{ url('ag_shortener_redirect', {token: link.token }) }}">
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
-                        <img src="{{ qrcode_data_uri(shortenedUrl) }}" alt="QR" class="img-responsive center-block">
+                        <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token })) }}" alt="QR" class="img-responsive center-block">
                     </div>
                 </div>
             </div>
