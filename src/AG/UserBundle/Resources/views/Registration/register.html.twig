@@ -1,0 +1,29 @@
+{% extends '@AGUser/layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block ag_user_content %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2>{{ fa('user-plus') }} Créer un compte</h2>
+            <hr>
+            {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}
+            {{ form_widget(form) }}
+            <div class="form-group">
+                <input type="submit" class="btn btn-default" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+            </div>
+            {{ form_end(form) }}
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-6">
+        <h2>{{ fa(icon) }} Raccourcir URLs</h2>
+        <hr>
+        <p>En créant un compte, vous accèdez aux fonctionnalités suivantes :</p>
+        <ul>
+        <li>Garder une trace de vos URLs</li>
+        <li>Savoir combien de fois vos URLs ont été visités</li>
+        <li>Envoyer vos URLs par e-mail</li>
+        </ul>
+        </div>
+    </div>
+{% endblock %}

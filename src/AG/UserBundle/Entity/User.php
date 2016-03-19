@@ -1,0 +1,73 @@
+<?php
+
+namespace AG\UserBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+
+/**
+ * User
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AG\UserBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
+*/
+class User extends BaseUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AG\ShortenerBundle\Entity\Link", mappedBy="user")
+     */
+    private $links;
+
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->links = new ArrayCollection();
+    }
+
+    /**
+     * Add links
+     *
+     * @param \AG\ShortenerBundle\Entity\Link $links
+     * @return User
+     */
+    public function addLink(\AG\ShortenerBundle\Entity\Link $links)
+    {
+        $this->links[] = $links;
+
+        return $this;
+    }
+
+    /**
+     * Remove links
+     *
+     * @param \AG\ShortenerBundle\Entity\Link $links
+     */
+    public function removeLink(\AG\ShortenerBundle\Entity\Link $links)
+    {
+        $this->links->removeElement($links);
+    }
+
+    /**
+     * Get links
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+}

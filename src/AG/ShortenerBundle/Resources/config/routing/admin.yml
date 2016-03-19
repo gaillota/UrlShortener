@@ -1,0 +1,3 @@
+ag_shortener_admin:
+    path: /
+    defaults: { _controller: AGShortenerBundle:Admin:index }

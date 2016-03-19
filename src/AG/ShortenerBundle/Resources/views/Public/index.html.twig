@@ -1,0 +1,46 @@
+{% extends "::base.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>{{ fa('qrcode') }} Générer un lien</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form(form) }}
+        </div>
+        {% if shortenedUrl is defined %}
+            <div class="col-md-6 col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="short" class="control-label">Lien raccourci</label>
+                            <input id="short" type="text" class="form-control" readonly="readonly" value="{{ shortenedUrl }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <img src="{{ qrcode_data_uri(shortenedUrl) }}" alt="QR" class="img-responsive center-block">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('#short').select().focus();
+    </script>
+{% endblock %}

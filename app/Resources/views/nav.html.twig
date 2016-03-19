@@ -1,0 +1,45 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('ag_shortener_homepage') }}">{{ fa(icon) }} Shortener</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% if app.user %}
+                    <li>
+                        <a href="{{ path('ag_shortener_homepage') }}">{{ fa('refresh') }} Générer un lien</a>
+                    </li>
+                    <li>
+                        <a href="">{{ fa('list') }} Mes liens</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if app.user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ fa('user') }} <i>{{ app.user }}</i> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('fos_user_profile_show') }}">{{ fa('user') }} My account</a></li>
+                            <li><a href="{{ path('fos_user_change_password') }}">{{ fa('lock') }} Change password</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('ag_shortener_admin') }}">{{ fa('terminal') }} Administration</a></li>
+                            {% endif %}
+                            <li class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}">{{ fa('sign-out') }} Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
