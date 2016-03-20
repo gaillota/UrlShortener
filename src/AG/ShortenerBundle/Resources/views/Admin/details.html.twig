@@ -18,7 +18,7 @@
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales'],
+                ['Year', 'Clics'],
                 ['2013',  1000],
                 ['2014',  1170],
                 ['2015',  660],
@@ -26,7 +26,7 @@
             ]);
 
             var options = {
-                title: 'Clique(s)',
+                title: 'Clics',
                 hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
                 vAxis: {minValue: 0}
             };

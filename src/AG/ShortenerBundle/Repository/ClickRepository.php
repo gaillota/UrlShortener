@@ -1,6 +1,7 @@
 <?php
 
 namespace AG\ShortenerBundle\Repository;
+use AG\ShortenerBundle\Graph\ClickData;
 
 /**
  * ClickRepository
@@ -10,4 +11,38 @@ namespace AG\ShortenerBundle\Repository;
  */
 class ClickRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getClicksData($linkId)
+    {
+        $clickData = new ClickData();
+
+        $qb = $this->createQueryBuilder('c')
+            ->innerJoin('c.link', 'l')
+            ->where('l.id = :id')
+            ->setParameter('id', $linkId)
+        ;
+
+        $firstResult = $qb
+            ->orderBy('c.date', 'DESC')
+            ->setMaxResults(1)
+            ->groupBy('YEAR(c.date)')
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $first = $firstResult[0];
+        $clickData->setFirst($first->getDate());
+
+        $lastResult = $qb
+            ->orderBy('c.date', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $last = $lastResult[0];
+        $clickData->setLast($last->getDate());
+
+        // TODO
+//        $groupBy = $clickData->getGroupBy();
+    }
 }

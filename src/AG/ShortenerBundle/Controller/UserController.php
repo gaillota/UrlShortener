@@ -71,7 +71,7 @@ class UserController extends Controller
      */
     public function removeAction(Link $link)
     {
-        if ($link->getOwner() != $this->getUser())
+        if ($link->get() != $this->getUser())
             throw new AccessDeniedException("Vous n'êtes pas autorisé à supprimer ce lien.");
 
         $form = $this->createFormBuilder()->getForm();
@@ -81,7 +81,7 @@ class UserController extends Controller
             $this->em->remove($link);
             $this->em->flush();
 
-            return $this->redirectToRoute('ag_shortener_my_links');
+            return $this->redirectToRoute('ag_shortener_links');
         }
 
         return array(
