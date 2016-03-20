@@ -12,27 +12,38 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="{{ asset('js/highcharts_theme.js') }}"></script>
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Year', 'Clics'],
-                ['2013',  1000],
-                ['2014',  1170],
-                ['2015',  660],
-                ['2016',  1030]
-            ]);
-
-            var options = {
-                title: 'Clics',
-                hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0}
-            };
-
-            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
+        $(function () {
+            $('#chart_container').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Nombre de clics'
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Clics'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: true
+                    }
+                },
+                series: [{
+                    name: 'Clics',
+                    data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                }]
+            });
+        });
     </script>
 {% endblock %}
