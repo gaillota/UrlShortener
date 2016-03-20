@@ -10,5 +10,5 @@ TODO:
 - [X] User links view
 - [X] Admin
 - [X] Pagination
-- [ ] Check views
+- [X] Check views
 - [ ] Chart of clicks
