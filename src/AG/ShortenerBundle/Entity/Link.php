@@ -30,7 +30,6 @@ class Link
      * @var string
      *
      * @ORM\Column(name="token", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
      */
     private $token;
 
