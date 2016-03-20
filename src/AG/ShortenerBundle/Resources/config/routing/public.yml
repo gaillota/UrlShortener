@@ -3,7 +3,7 @@ ag_shortener_homepage:
     defaults: { _controller: AGShortenerBundle:Public:index }
 
 ag_shortener_redirect:
-    path: /{token}
+    path: /s/{token}
     defaults: { _controller: AGShortenerBundle:Public:redirect }
     requirements:
         token: "[a-zA-Z0-9]+"

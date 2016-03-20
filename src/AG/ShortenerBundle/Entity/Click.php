@@ -4,6 +4,7 @@ namespace AG\ShortenerBundle\Entity;
 
 use AG\UserBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -27,6 +28,7 @@ class Click
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\DateTime()
      */
     private $date;
 
@@ -34,6 +36,9 @@ class Click
      * @var Link
      *
      * @ORM\ManyToOne(targetEntity="Link", inversedBy="clicks")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @Assert\Valid()
+     *
      */
     private $link;
 

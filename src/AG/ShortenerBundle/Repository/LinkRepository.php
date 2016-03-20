@@ -10,4 +10,19 @@ namespace AG\ShortenerBundle\Repository;
  */
 class LinkRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllQuery($userId)
+    {
+        return $this->createQueryBuilder('l')
+            ->where('l.owner = :user')
+            ->setParameter('user', $userId)
+            ->orderBy('l.createdAt', 'DESC')
+            ->getQuery();
+    }
+
+    public function findAllAdminQuery()
+    {
+        return $this->createQueryBuilder('l')
+            ->orderBy('l.createdAt', 'DESC')
+            ->getQuery();
+    }
 }

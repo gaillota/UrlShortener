@@ -1,0 +1,11 @@
+{% extends '@AGShortener/layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('ag_shortener_admin') }}">Administration</a></li>
+    <li class="active">Supprimer</li>
+{% endblock %}
+
+{% block ag_shortener_content %}
+    {% include 'AGShortenerBundle:User:remove_content.html.twig' %}
+{% endblock %}

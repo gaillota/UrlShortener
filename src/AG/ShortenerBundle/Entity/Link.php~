@@ -6,6 +6,7 @@ use AG\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Link
@@ -39,6 +40,13 @@ class Link
     private $url;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
      * @ORM\OneToMany(targetEntity="Click", mappedBy="link")
      */
     private $clicks;
@@ -47,6 +55,7 @@ class Link
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="AG\UserBundle\Entity\User", inversedBy="links")
+     * @Gedmo\Blameable(on="create")
      */
     private $user;
 
@@ -149,5 +158,28 @@ class Link
     public function getClicks()
     {
         return $this->clicks;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AG\UserBundle\Entity\User $user
+     * @return Link
+     */
+    public function setUser(\AG\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AG\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

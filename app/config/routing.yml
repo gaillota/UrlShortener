@@ -1,4 +1,15 @@
 #
+# Application
+#
+ag_shortener:
+    resource: "@AGShortenerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ag_user:
+    resource: "@AGUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+#
 # Vendors
 #
 fos_user_security:
@@ -19,14 +30,3 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
-
-#
-# Application
-#
-ag_user:
-    resource: "@AGUserBundle/Resources/config/routing.yml"
-    prefix:   /
-
-ag_shortener:
-    resource: "@AGShortenerBundle/Resources/config/routing.yml"
-    prefix:   /

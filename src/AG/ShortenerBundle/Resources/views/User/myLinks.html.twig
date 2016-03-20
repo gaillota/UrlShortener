@@ -1,0 +1,10 @@
+{% extends '@AGShortener/layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li class="active">Mes liens</li>
+{% endblock %}
+
+{% block ag_shortener_content %}
+    {% include 'AGShortenerBundle:User:myLinks_content.html.twig' %}
+{% endblock %}

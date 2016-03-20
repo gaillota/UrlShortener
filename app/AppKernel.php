@@ -20,11 +20,15 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
 
             // JMS
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
 
             // Doctrine
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
+            // KNP
+            new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             // Endroid QR Code
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),

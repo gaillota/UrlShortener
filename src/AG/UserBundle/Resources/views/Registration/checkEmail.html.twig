@@ -1,0 +1,18 @@
+{% extends "@AGUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li class="active">Créer un compte</li>
+{% endblock %}
+
+{% block ag_user_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Inscription</h2>
+            <hr>
+            <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+        </div>
+    </div>
+{% endblock %}

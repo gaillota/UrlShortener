@@ -8,7 +8,7 @@
 			<h2 class="text-center">{{ fa('sign-in') }} Se connecter</h2>
 			<hr/>
 			{% if error %}
-				<div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+				<div class="alert alert-danger">{{ error.message|trans({}, 'FOSUserBundle') }}</div>
 			{% endif %}
 			<form action="{{ path("fos_user_security_check") }}" method="post">
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -16,6 +16,7 @@
 					<label for="username">E-mail / {{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
 					<input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autofocus />
 				</div>
+				<a href="{{ path('fos_user_resetting_request') }}" class="pull-right">Mot de passe oublié</a>
 				<div class="form-group">
 					<label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
 					<input class="form-control" type="password" id="password" name="_password" required="required" />

@@ -19,10 +19,13 @@ class LinkType extends AbstractType
     {
         $builder
             ->add('url', TextareaType::class, array(
-                'label' => 'Coller votre longue URL'
+                'label' => 'URL',
+                'attr' => array(
+                    'placeholder' => 'Collez ici votre longue URL...'
+                )
             ))
             ->add('save', SubmitType::class, array(
-                'label' => 'Raccourcir URL'
+                'label' => 'Raccourcir',
             ))
         ;
     }

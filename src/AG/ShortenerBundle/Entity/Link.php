@@ -6,6 +6,7 @@ use AG\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -29,6 +30,7 @@ class Link
      * @var string
      *
      * @ORM\Column(name="token", type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $token;
 
@@ -36,8 +38,17 @@ class Link
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=2083)
+     * @Assert\Url()
      */
     private $url;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     * @Assert\DateTime()
+     */
+    private $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Click", mappedBy="link")
@@ -50,7 +61,7 @@ class Link
      * @ORM\ManyToOne(targetEntity="AG\UserBundle\Entity\User", inversedBy="links")
      * @Gedmo\Blameable(on="create")
      */
-    private $user;
+    private $owner;
 
 
     /**
@@ -58,6 +69,7 @@ class Link
      */
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->clicks = new ArrayCollection();
     }
 
@@ -156,12 +168,12 @@ class Link
     /**
      * Set user
      *
-     * @param \AG\UserBundle\Entity\User $user
+     * @param User $owner
      * @return Link
      */
-    public function setUser(\AG\UserBundle\Entity\User $user = null)
+    public function setOwner(User $owner = null)
     {
-        $this->user = $user;
+        $this->owner = $owner;
 
         return $this;
     }
@@ -169,10 +181,33 @@ class Link
     /**
      * Get user
      *
-     * @return \AG\UserBundle\Entity\User 
+     * @return User
      */
-    public function getUser()
+    public function getOwner()
     {
-        return $this->user;
+        return $this->owner;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Link
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

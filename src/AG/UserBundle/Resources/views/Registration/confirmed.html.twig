@@ -1,0 +1,21 @@
+{% extends "@AGUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li class="active">Créer un compte</li>
+{% endblock %}
+
+{% block ag_user_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Confirmation</h2>
+            <hr>
+            <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+            <a href="{{ path('ag_shortener_homepage') }}" class="btn btn-default">
+                {{ fa('home') }} Retour à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}

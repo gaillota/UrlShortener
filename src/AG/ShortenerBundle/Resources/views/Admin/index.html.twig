@@ -1,9 +1,14 @@
-{% extends '::base.html.twig' %}
+{% extends '@AGShortener/layout.html.twig' %}
 
-{% block body %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('ag_shortener_admin') }}">Administration</a></li>
+{% endblock %}
+
+{% block ag_shortener_content %}
     <div class="row">
         <div class="col-md-12">
-            <h2>{{ fa('terminal') }} Administration</h2>
+            <h2>{{ fa('terminal') }} Administration <small>{{ linkList.getTotalItemCount }}</small></h2>
         </div>
     </div>
     <div class="row">
@@ -11,24 +16,54 @@
             {% if linkList is not empty %}
                 <table class="table table-hover">
                     <tr>
-                        <th>Lien</th>
+                        <th>#</th>
                         <th>URL</th>
+                        <th>Lien</th>
+                        <th>Cliques</th>
+                        <th>Date</th>
                         <th>User</th>
                         <th></th>
                     </tr>
                     {% for link in linkList %}
                         <tr>
-                            <td>{{ url('ag_shortener_redirect', { token: link.token }) }}</td>
-                            <td>{{ link.url }}</td>
-                            <td>{{ link.user is not null ? link.user.username : 'Unknown' }}</td>
+                            <td>
+                                {{ link.id }}
+                            </td>
+                            <td style="max-width: 250px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                                <a href="{{ link.url }}" target="_blank">
+                                    {{ link.url }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ url('ag_shortener_redirect', { token: link.token }) }}" target="_blank">
+                                    {{ url('ag_shortener_redirect', { token: link.token }) }}
+                                </a>
+                            </td>
+                            <td class="text-center">{{ link.clicks|length }}</td>
+                            <td>
+                                {{ link.createdAt|date('d-m-Y H:i:s') }}
+                            </td>
+                            <td>
+                                {{ link.owner is not null ? link.owner.username : '' }}
+                            </td>
                             <td>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-xs btn-info">Voir détails</a>
+                                    <a href="{{ path('ag_shortener_admin_details', { id: link.id }) }}" class="btn btn-xs btn-info">
+                                        {{ fa('line-chart') }} Voir détails
+                                    </a>
+                                    <a href="{{ path('ag_shortener_admin_remove', { id: link.id }) }}" class="btn btn-xs btn-danger">
+                                        {{ fa('trash') }} Supprimer
+                                    </a>
                                 </div>
                             </td>
                         </tr>
                     {% endfor %}
                 </table>
+                <nav class="text-center">
+                    {{ knp_pagination_render(linkList) }}
+                </nav>
+            {% else %}
+                <h5 class="text-center">Aucun lien pour le moment...</h5>
             {% endif %}
         </div>
     </div>

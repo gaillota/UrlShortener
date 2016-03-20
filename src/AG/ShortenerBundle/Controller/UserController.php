@@ -7,9 +7,11 @@ use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
     /**
      * @var Request
@@ -29,14 +31,16 @@ class AdminController extends Controller
     /**
      * @return array
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
-    public function indexAction()
+    public function myLinksAction()
     {
-        $linkList = $this->em->getRepository('AGShortenerBundle:Link')->findAllAdminQuery();
+        $user = $this->getUser();
+        $linksQuery = $this->em->getRepository('AGShortenerBundle:Link')->findAllQuery($user->getId());
 
         return array(
-            'linkList' => $this->paginator->paginate(
-                $linkList,
+            'links' => $this->paginator->paginate(
+                $linksQuery,
                 $this->request->query->getInt('page', 1),
                 20
             )
@@ -47,9 +51,13 @@ class AdminController extends Controller
      * @param Link $link
      * @return array
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function detailsAction(Link $link)
     {
+        if ($link->getOwner() != $this->getUser())
+            throw new AccessDeniedException("Vous n'êtes pas autorisé à supprimer ce lien.");
+
         return array(
             'link' => $link
         );
@@ -59,9 +67,13 @@ class AdminController extends Controller
      * @param Link $link
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Template
+     * @Secure(roles="ROLE_USER")
      */
     public function removeAction(Link $link)
     {
+        if ($link->getOwner() != $this->getUser())
+            throw new AccessDeniedException("Vous n'êtes pas autorisé à supprimer ce lien.");
+
         $form = $this->createFormBuilder()->getForm();
         $form->handleRequest($this->request);
 
@@ -69,7 +81,7 @@ class AdminController extends Controller
             $this->em->remove($link);
             $this->em->flush();
 
-            return $this->redirectToRoute('ag_shortener_admin');
+            return $this->redirectToRoute('ag_shortener_my_links');
         }
 
         return array(
@@ -77,4 +89,5 @@ class AdminController extends Controller
             'form' => $form->createView()
         );
     }
+
 }

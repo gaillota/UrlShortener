@@ -1,6 +1,8 @@
 ag_shortener_public:
     resource: "routing/public.yml"
-    prefix: /
+
+ag_shortener_user:
+    resource: "routing/user.yml"
 
 ag_shortener_admin:
     resource: "routing/admin.yml"

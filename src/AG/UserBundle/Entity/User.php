@@ -27,7 +27,7 @@ class User extends BaseUser
     /**
      * var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AG\ShortenerBundle\Entity\Link", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AG\ShortenerBundle\Entity\Link", mappedBy="owner")
      */
     private $links;
 

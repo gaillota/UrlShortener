@@ -4,9 +4,11 @@ UrlShortener
 A Symfony project created on March 19, 2016, 1:23 pm.
 
 TODO:
-- [ ] User email confirmation
-- [ ] User profile show
-- [ ] User profile edit
-- [ ] User links view
-- [ ] Admin
-- [ ] Pagination
+- [X] User email confirmation
+- [X] User profile show
+- [X] User profile edit
+- [X] User links view
+- [X] Admin
+- [X] Pagination
+- [ ] Check views
+- [ ] Chart of clicks

@@ -4,24 +4,19 @@
 
 {% block breadcrumbs %}
 	{{ parent() }}
-	<li><a href="{{ path('fos_user_profile_show') }}">My account</a></li>
-	<li class="active">Edit my account</li>
+	<li><a href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
+	<li class="active">Editer mon compte</li>
 {% endblock %}
 
 {% block ag_user_content  %}
 	<div class="row">
-		<div class="col-sm-1 text-center hidden-xs" style="padding-top: 22px;">
-			<a href="{{ path('fos_user_profile_show') }}">
-				{{ fa('reply fa-2x') }}
-			</a>
-		</div>
-		<div class="col-sm-11">
-			<h2>{{ fa('edit') }} Edit my informations</h2>
+		<div class="col-sm-12">
+			<h2>{{ fa('edit') }} Editer mes informations</h2>
 		</div>
 	</div>
 	<hr/>
     <div class="row">
-        <div class="col-xs-10 center-block nfloat">
+        <div class="col-md-9 col-xs-10 center-block" style="float: none;">
             {#{% form_theme form 'bootstrap_3_layout.html.twig' %}#}
             {#{{ form(form) }}#}
 	        <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">

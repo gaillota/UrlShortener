@@ -1,0 +1,15 @@
+ag_shortener_my_links:
+    path: /my-links
+    defaults: { _controller: AGShortenerBundle:User:myLinks }
+
+ag_shortener_links_details:
+    path: /my-links/{id}
+    defaults: { _controller: AGShortenerBundle:User:details }
+    requirements:
+        id: \d+
+
+ag_shortener_remove:
+    path: /{id}/remove
+    defaults: { _controller: AGShortenerBundle:User:remove }
+    requirements:
+        id: \d+

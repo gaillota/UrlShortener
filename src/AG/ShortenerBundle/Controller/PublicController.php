@@ -5,11 +5,15 @@ namespace AG\ShortenerBundle\Controller;
 use AG\ShortenerBundle\Entity\Click;
 use AG\ShortenerBundle\Entity\Link;
 use AG\ShortenerBundle\Form\LinkType;
+use AG\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Knp\Component\Pager\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PublicController extends Controller
 {

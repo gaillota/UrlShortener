@@ -1,11 +1,11 @@
-{% extends "::base.html.twig" %}
+{% extends "@AGShortener/layout.html.twig" %}
 
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
-{% block body %}
+{% block ag_shortener_content %}
     <div class="row">
         <div class="col-xs-12">
-            <h2>{{ fa('qrcode') }} Générer un lien</h2>
+            <h2>{{ fa('compress') }} Raccourcir un lien</h2>
             <hr>
         </div>
     </div>
@@ -21,16 +21,20 @@
                             <label for="short" class="control-label">Lien raccourci</label>
                             <input id="short" type="text" class="form-control" readonly="readonly" value="{{ url('ag_shortener_redirect', {token: link.token }) }}">
                         </div>
+                        <a href="{{ path('ag_shortener_redirect', { token: link.token }) }}" class="btn btn-success" target="_blank">
+                            {{ fa('link') }} Tester
+                        </a>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-5 col-sm-12">
                         <hr>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token })) }}" alt="QR" class="img-responsive center-block">
+                    <div class="col-xs-12">
+                        <h5><strong>QR Code</strong></h5>
+                        <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token })) }}" alt="QR" class="img-responsive center-block img-thumbnail">
                     </div>
                 </div>
             </div>
@@ -41,6 +45,8 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        $('#short').select().focus();
+        $('#short').select().focus().on('focus', function() {
+            $(this).select();
+        });
     </script>
 {% endblock %}

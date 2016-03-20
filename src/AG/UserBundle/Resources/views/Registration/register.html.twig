@@ -2,6 +2,11 @@
 
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li class="active">Créer un compte</li>
+{% endblock %}
+
 {% block ag_user_content %}
     <div class="row">
         <div class="col-md-6">
@@ -16,13 +21,13 @@
             <div class="clearfix"></div>
         </div>
         <div class="col-md-6">
-        <h2>{{ fa(icon) }} Raccourcir URLs</h2>
+        <h2>{{ fa('link') }} Raccourcir URLs</h2>
         <hr>
         <p>En créant un compte, vous accèdez aux fonctionnalités suivantes :</p>
         <ul>
-        <li>Garder une trace de vos URLs</li>
-        <li>Savoir combien de fois vos URLs ont été visités</li>
-        <li>Envoyer vos URLs par e-mail</li>
+        <li>{{ fa('download') }} Garder une trace de vos URLs</li>
+        <li>{{ fa('area-chart') }} Savoir combien de fois vos URLs ont été visités</li>
+        <li>{{ fa('envelope') }} Envoyer vos URLs par e-mail</li>
         </ul>
         </div>
     </div>

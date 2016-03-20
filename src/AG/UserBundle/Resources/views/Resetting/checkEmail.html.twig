@@ -1,0 +1,15 @@
+{% extends "@AGUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block ag_user_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Réinitialiser mon mot de passe</h2>
+            <hr>
+            <p>
+                {{ 'resetting.check_email'|trans({'%email%': email}) }}
+            </p>
+        </div>
+    </div>
+{% endblock %}
