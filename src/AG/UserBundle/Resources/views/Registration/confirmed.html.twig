@@ -10,7 +10,7 @@
 {% block ag_user_content %}
     <div class="row">
         <div class="col-md-12">
-            <h2>Confirmation</h2>
+            <h2>{{ fa('check') }} Confirmation</h2>
             <hr>
             <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
             <a href="{{ path('ag_shortener_homepage') }}" class="btn btn-default">

@@ -16,7 +16,6 @@
 					<label for="username">E-mail / {{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
 					<input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autofocus />
 				</div>
-				<a href="{{ path('fos_user_resetting_request') }}" class="pull-right">Mot de passe oublié</a>
 				<div class="form-group">
 					<label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
 					<input class="form-control" type="password" id="password" name="_password" required="required" />
@@ -33,21 +32,17 @@
 			</form>
 			<div class="row">
 				<div class="col-xs-12">
-					<h5 class="text-center">
-						<a href="{{ path('fos_user_registration_register') }}">Créer un compte</a>
-					</h5>
+					<hr>
+					<div class="row">
+						<div class="col-xs-6 text-center">
+							<a href="{{ path('fos_user_registration_register') }}" class="btn btn-success">{{ fa('user-plus') }} Créer un compte</a>
+						</div>
+						<div class="col-xs-6 text-center">
+							<a href="{{ path('fos_user_resetting_request') }}" class="btn btn-default">{{ fa('lock') }} Mot de passe oublié</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		{#<div class="col-md-6">#}
-			{#<h2>{{ fa(icon) }} Raccourcir URLs</h2>#}
-			{#<hr>#}
-			{#<p>En créant un compte, vous accèdez aux fonctionnalités suivantes :</p>#}
-			{#<ul>#}
-				{#<li>Garder une trace de vos URLs</li>#}
-				{#<li>Savoir combien de fois vos URLs ont été visités</li>#}
-				{#<li>Envoyer vos URLs par e-mail</li>#}
-			{#</ul>#}
-		{#</div>#}
 	</div>
 {% endblock %}
