@@ -34,7 +34,7 @@ class Scan
     /**
      * @var Link
      *
-     * @ORM\ManyToOne(targetEntity="Link", inversedBy="clicks")
+     * @ORM\ManyToOne(targetEntity="Link", inversedBy="scans")
      * @ORM\JoinColumn(onDelete="CASCADE")
      * @Assert\Valid()
      *

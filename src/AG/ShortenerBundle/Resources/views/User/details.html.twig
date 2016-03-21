@@ -21,14 +21,14 @@
                     type: 'line'
                 },
                 title: {
-                    text: 'Nombre de clics'
+                    text: 'Utilisation'
                 },
                 xAxis: {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
                 yAxis: {
                     title: {
-                        text: 'Clics'
+                        text: ''
                     }
                 },
                 plotOptions: {
@@ -42,6 +42,9 @@
                 series: [{
                     name: 'Clics',
                     data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                }, {
+                    name: 'Scans',
+                    data: [6.2, 6.5, 45, 2.5, 56, 4.5, 42, 45.9, 89.3, 11, 18.2, 25]
                 }]
             });
         });
