@@ -55,6 +55,11 @@ class Link
     private $clicks;
 
     /**
+     * @ORM\OneToMany(targetEntity="Scan", mappedBy="link")
+     */
+    private $scans;
+
+    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="AG\UserBundle\Entity\User", inversedBy="links")
@@ -70,6 +75,7 @@ class Link
     {
         $this->createdAt = new \DateTime();
         $this->clicks = new ArrayCollection();
+        $this->scans = new ArrayCollection();
     }
 
     /**
@@ -208,5 +214,38 @@ class Link
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Add scans
+     *
+     * @param Scan $scans
+     * @return Link
+     */
+    public function addScan(Scan $scans)
+    {
+        $this->scans[] = $scans;
+
+        return $this;
+    }
+
+    /**
+     * Remove scans
+     *
+     * @param Scan $scans
+     */
+    public function removeScan(Scan $scans)
+    {
+        $this->scans->removeElement($scans);
+    }
+
+    /**
+     * Get scans
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getScans()
+    {
+        return $this->scans;
     }
 }

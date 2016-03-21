@@ -8,6 +8,7 @@
                     <th>URL</th>
                     <th>Lien</th>
                     <th>Clics</th>
+                    <th>Scans</th>
                     <th>Date</th>
                     <th></th>
                 </tr>
@@ -22,12 +23,15 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ url('ag_shortener_redirect', { token: link.token }) }}" target="_blank">
-                                {{ url('ag_shortener_redirect', { token: link.token }) }}
+                            <a href="{{ url('ag_shortener_click_redirect', { token: link.token }) }}" target="_blank">
+                                {{ url('ag_shortener_click_redirect', { token: link.token }) }}
                             </a>
                         </td>
                         <td class="text-center">
                             {{ link.clicks|length }}
+                        </td>
+                        <td class="text-center">
+                            {{ link.scans|length }}
                         </td>
                         <td>
                             {{ link.createdAt|date('d-m-Y H:i:s') }}

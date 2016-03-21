@@ -3,16 +3,30 @@
         <h3>{{ fa('list') }} Détails</h3>
         <hr>
         <h4>{{ fa('globe') }} URL</h4>
-        <p><a href="{{ link.url }}" target="_blank">{{ link.url }}</a></p>
+        <p>
+            <a href="{{ link.url }}" target="_blank">
+                {{ link.url }}
+            </a>
+        </p>
         <h4>{{ fa('link') }} Lien</h4>
-        <p><a href="{{ url('ag_shortener_redirect', { token: link.token }) }}" target="_blank">{{ url('ag_shortener_redirect', { token: link.token }) }}</a></p>
+        <p>
+            <a href="{{ url('ag_shortener_click_redirect', { token: link.token }) }}" target="_blank">
+                {{ url('ag_shortener_click_redirect', { token: link.token }) }}
+            </a>
+        </p>
         <h4>{{ fa('hand-o-up') }} Clics</h4>
-        <p>{{ link.clicks|length }} clic{% if link.clicks|length > 1 %}s{% endif %}</p>
+        <p>
+            {{ link.clicks|length }} clic{% if link.clicks|length > 1 %}s{% endif %}
+        </p>
+        <h4>{{ fa('mobile') }} Scans</h4>
+        <p>
+            {{ link.scans|length }} scan{% if link.scans|length > 1 %}s{% endif %}
+        </p>
     </div>
     <div class="col-md-6">
         <h3>{{ fa('qrcode') }} QR Code</h3>
         <hr>
-        <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token }), size=200) }}" alt="QR" class="img-responsive">
+        <img src="{{ qrcode_data_uri(url('ag_shortener_scan_redirect', {token: link.token }), size=200) }}" alt="QR" class="img-responsive">
     </div>
 </div>
 <div class="row">

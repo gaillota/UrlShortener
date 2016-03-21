@@ -2,8 +2,14 @@ ag_shortener_homepage:
     path:     /
     defaults: { _controller: AGShortenerBundle:Public:index }
 
-ag_shortener_redirect:
+ag_shortener_click_redirect:
+    path: /c/{token}
+    defaults: { _controller: AGShortenerBundle:Public:clickRedirect }
+    requirements:
+        token: "[a-zA-Z0-9]+"
+
+ag_shortener_scan_redirect:
     path: /s/{token}
-    defaults: { _controller: AGShortenerBundle:Public:redirect }
+    defaults: { _controller: AGShortenerBundle:Public:scanRedirect }
     requirements:
         token: "[a-zA-Z0-9]+"

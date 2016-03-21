@@ -4,6 +4,7 @@ namespace AG\ShortenerBundle\Controller;
 
 use AG\ShortenerBundle\Entity\Click;
 use AG\ShortenerBundle\Entity\Link;
+use AG\ShortenerBundle\Entity\Scan;
 use AG\ShortenerBundle\Form\LinkType;
 use AG\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
@@ -59,7 +60,7 @@ class PublicController extends Controller
     /**
      * @param $token
      */
-    public function redirectAction($token)
+    public function clickRedirectAction($token)
     {
         $link = $this->em->getRepository('AGShortenerBundle:Link')->findOneBy(array(
             'token' => $token
@@ -71,6 +72,27 @@ class PublicController extends Controller
         }
 
         $click = new Click;
+        $click->setLink($link);
+        $this->em->persist($click);
+        $this->em->flush();
+
+        return $this->redirect($link->getUrl());
+    }
+
+    /**
+     * @param $token
+     */
+    public function scanRedirectAction($token)
+    {
+        $link = $this->em->getRepository('AGShortenerBundle:Link')->findOneBy(array(
+            'token' => $token
+        ));
+
+        if (null == $link) {
+            return $this->createNotFoundException('URL not found');
+        }
+
+        $click = new Scan;
         $click->setLink($link);
         $this->em->persist($click);
         $this->em->flush();

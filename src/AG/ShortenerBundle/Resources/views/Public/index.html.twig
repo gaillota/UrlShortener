@@ -19,9 +19,9 @@
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label for="short" class="control-label">{{ fa('link') }} Lien raccourci</label>
-                            <input id="short" type="text" class="form-control" readonly="readonly" value="{{ url('ag_shortener_redirect', {token: link.token }) }}">
+                            <input id="short" type="text" class="form-control" readonly="readonly" value="{{ url('ag_shortener_click_redirect', {token: link.token }) }}">
                         </div>
-                        <a href="{{ path('ag_shortener_redirect', { token: link.token }) }}" class="btn btn-success" target="_blank">
+                        <a href="{{ path('ag_shortener_click_redirect', { token: link.token }) }}" class="btn btn-success" target="_blank">
                             Tester {{ fa('arrow-right') }}
                         </a>
                     </div>
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h5><strong>{{ fa('qrcode') }} QR Code</strong></h5>
-                        <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token })) }}" alt="QR" class="img-responsive center-block img-thumbnail">
+                        <img src="{{ qrcode_data_uri(url('ag_shortener_scan_redirect', {token: link.token })) }}" alt="QR" class="img-responsive center-block img-thumbnail">
                     </div>
                 </div>
             </div>
