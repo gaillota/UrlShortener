@@ -51,6 +51,15 @@ class Scan
 
 
     /**
+     * Click constructor.
+     */
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
+
+    /**
      * Get id
      *
      * @return integer 

@@ -24,7 +24,8 @@
         "stof/doctrine-extensions-bundle": "^1.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "jms/di-extra-bundle": "dev-master",
-        "endroid/qrcode-bundle": "^1.6"
+        "endroid/qrcode-bundle": "^1.6",
+        "beberlei/DoctrineExtensions": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

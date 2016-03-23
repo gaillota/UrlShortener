@@ -2,6 +2,7 @@
 
 namespace AG\ShortenerBundle\Controller;
 
+use AG\ShortenerBundle\ChartData\LinkChartData;
 use AG\ShortenerBundle\Entity\Link;
 use Doctrine\ORM\EntityManager;
 use Knp\Component\Pager\Paginator;
@@ -58,8 +59,15 @@ class UserController extends Controller
         if ($link->getOwner() != $this->getUser())
             throw new AccessDeniedException("Vous n'êtes pas autorisé à supprimer ce lien.");
 
+        $linkChartData = $this->get('ag_shortener.chart_data');
+        $linkChartData->setLink($link);
+        $linkChartData->setClicks();
+        $linkChartData->setScans();
+        $linkChartData->computeData();
+
         return array(
-            'link' => $link
+            'link' => $link,
+            'chartData' => $linkChartData
         );
     }
 
@@ -71,7 +79,7 @@ class UserController extends Controller
      */
     public function removeAction(Link $link)
     {
-        if ($link->get() != $this->getUser())
+        if ($link->getOwner() != $this->getUser())
             throw new AccessDeniedException("Vous n'êtes pas autorisé à supprimer ce lien.");
 
         $form = $this->createFormBuilder()->getForm();
@@ -81,7 +89,7 @@ class UserController extends Controller
             $this->em->remove($link);
             $this->em->flush();
 
-            return $this->redirectToRoute('ag_shortener_links');
+            return $this->redirectToRoute('ag_shortener_my_links');
         }
 
         return array(

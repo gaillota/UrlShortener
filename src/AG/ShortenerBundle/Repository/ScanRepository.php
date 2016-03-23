@@ -2,6 +2,7 @@
 
 namespace AG\ShortenerBundle\Repository;
 
+use AG\ShortenerBundle\Entity\Link;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -12,4 +13,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class ScanRepository extends EntityRepository
 {
+    public function getScans(Link $link)
+    {
+        $qb = $this->createQueryBuilder('s')
+            ->addSelect('COUNT(s.id) scanCount, YEAR(s.date) year, MONTH(s.date) month, DAY(s.date) day')
+            ->where('s.link = :link')
+            ->setParameter('link', $link)
+            ->groupBy('year, month, day')
+            ->orderBy('s.date', 'ASC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -50,8 +50,15 @@ class AdminController extends Controller
      */
     public function detailsAction(Link $link)
     {
+        $linkChartData = $this->get('ag_shortener.chart_data');
+        $linkChartData->setLink($link);
+        $linkChartData->setClicks();
+        $linkChartData->setScans();
+        $linkChartData->computeData();
+
         return array(
-            'link' => $link
+            'link' => $link,
+            'chartData' => $linkChartData
         );
     }
 

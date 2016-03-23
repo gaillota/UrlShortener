@@ -1,7 +1,7 @@
 <?php
 
 namespace AG\ShortenerBundle\Repository;
-use AG\ShortenerBundle\Graph\ClickData;
+use AG\ShortenerBundle\Entity\Link;
 
 /**
  * ClickRepository
@@ -11,38 +11,16 @@ use AG\ShortenerBundle\Graph\ClickData;
  */
 class ClickRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getClicksData($linkId)
+    public function getClicks(Link $link)
     {
-        $clickData = new ClickData();
-
         $qb = $this->createQueryBuilder('c')
-            ->innerJoin('c.link', 'l')
-            ->where('l.id = :id')
-            ->setParameter('id', $linkId)
-        ;
-
-        $firstResult = $qb
-            ->orderBy('c.date', 'DESC')
-            ->setMaxResults(1)
-            ->groupBy('YEAR(c.date)')
-            ->getQuery()
-            ->getResult()
-        ;
-
-        $first = $firstResult[0];
-        $clickData->setFirst($first->getDate());
-
-        $lastResult = $qb
+            ->addSelect('COUNT(c.id) clickCount, YEAR(c.date) year, MONTH(c.date) month, DAY(c.date) day')
+            ->where('c.link = :link')
+            ->setParameter('link', $link)
+            ->groupBy('year, month, day')
             ->orderBy('c.date', 'ASC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getResult()
         ;
 
-        $last = $lastResult[0];
-        $clickData->setLast($last->getDate());
-
-        // TODO
-//        $groupBy = $clickData->getGroupBy();
+        return $qb->getQuery()->getResult();
     }
 }
