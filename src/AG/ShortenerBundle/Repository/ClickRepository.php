@@ -17,6 +17,8 @@ class ClickRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('COUNT(c.id) clickCount, YEAR(c.date) year, MONTH(c.date) month, DAY(c.date) day')
             ->where('c.link = :link')
             ->setParameter('link', $link)
+            ->andWhere('c.date > :lastMonth')
+            ->setParameter('lastMonth', new \DateTime('last month'))
             ->groupBy('year, month, day')
             ->orderBy('c.date', 'ASC')
         ;

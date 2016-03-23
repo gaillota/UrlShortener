@@ -15,6 +15,8 @@ class LinkRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('l')
             ->where('l.owner = :user')
             ->setParameter('user', $userId)
+            ->andWhere('s.date > :lastMonth')
+            ->setParameter('lastMonth', new \DateTime('last month'))
             ->orderBy('l.createdAt', 'DESC')
             ->getQuery();
     }

@@ -126,6 +126,8 @@ class LinkChartData
         // Get length of chart
         $length = $this->chartEnd->diff($this->chartStart)->d;
 
+
+
         // Store clicks
         $clicksData = $this->clicks;
         // Create an array filled with 0 (+1 for if no clicks today)
@@ -155,6 +157,17 @@ class LinkChartData
         }
 
         $this->scans = $scans;
+    }
+
+    /**
+     * @param \DateTime $date1
+     * @param \DateTime $date2
+     * @return int
+     */
+    private function getInterval(\DateTime $date1, \DateTime $date2)
+    {
+        $diff = abs($date1->getTimestamp() - $date2->getTimestamp());
+        return intval($diff / 3600 / 24);
     }
 
     /**
