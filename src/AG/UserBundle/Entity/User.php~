@@ -2,6 +2,7 @@
 
 namespace AG\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -24,7 +25,23 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="AG\ShortenerBundle\Entity\Link", mappedBy="user")
+     * @var string
+     *
+     * @ORM\Column(name="foreground_color", type="string", length=8)
+     */
+    private $foregroundColor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="background_color", type="string", length=8)
+     */
+    private $backgroundColor;
+
+    /**
+     * var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AG\ShortenerBundle\Entity\Link", mappedBy="owner")
      */
     private $links;
 
@@ -32,5 +49,39 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->links = new ArrayCollection();
+    }
+
+    /**
+     * Add links
+     *
+     * @param \AG\ShortenerBundle\Entity\Link $links
+     * @return User
+     */
+    public function addLink(\AG\ShortenerBundle\Entity\Link $links)
+    {
+        $this->links[] = $links;
+
+        return $this;
+    }
+
+    /**
+     * Remove links
+     *
+     * @param \AG\ShortenerBundle\Entity\Link $links
+     */
+    public function removeLink(\AG\ShortenerBundle\Entity\Link $links)
+    {
+        $this->links->removeElement($links);
+    }
+
+    /**
+     * Get links
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLinks()
+    {
+        return $this->links;
     }
 }

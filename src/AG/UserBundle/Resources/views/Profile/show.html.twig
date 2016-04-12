@@ -15,7 +15,7 @@
 	    </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-sm-8 col-xs-10 center-block" style="float: none;">
+        <div class="col-md-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
 	                {{ fa('list-alt') }} Informations
@@ -40,6 +40,21 @@
                         <i class="fa fa-lock"></i> Changer mon mot de passe
                     </a>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    {{ fa('cogs') }} Préférences
+                </div>
+                <div class="panel-body">
+                    <p>Vous pouvez personnaliser vous-même les couleurs des QR Codes générés pour chaque lien.</p>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{ fa('picker') }} Foreground : <span class="label" style="color: #{{ user.foregroundColor }};"></span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

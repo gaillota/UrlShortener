@@ -8,3 +8,8 @@ services:
         class: AG\ShortenerBundle\Twig\FontAwesomeExtension
         tags:
             - { name: twig.extension }
+
+    hex_to_rgb_extension:
+        class: AG\ShortenerBundle\Twig\HexToRgbTransformer
+        tags:
+            - { name: twig.extension }
