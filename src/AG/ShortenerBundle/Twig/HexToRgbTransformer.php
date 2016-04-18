@@ -12,6 +12,10 @@ class HexToRgbTransformer extends \Twig_Extension
             new \Twig_SimpleFunction('hex_to_rgb', array(
                 $this,
                 'colorTransformer'
+            )),
+            new \Twig_SimpleFunction('hex_to_rgb_string', array(
+                $this,
+                'colorToString'
             ))
         );
     }
@@ -29,9 +33,18 @@ class HexToRgbTransformer extends \Twig_Extension
             $g = hexdec(substr($hex,2,2));
             $b = hexdec(substr($hex,4,2));
         }
-        $rgb = array($r, $g, $b);
+        $rgb = array(
+            'r' => $r,
+            'g' => $g,
+            'b' => $b
+        );
 
         return $rgb;
+    }
+
+    public function colorToString($hexColor)
+    {
+
     }
 
     public function getName()

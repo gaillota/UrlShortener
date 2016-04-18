@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ccd1b8b79a7015420bb1e69bd98f959",
-    "content-hash": "ce1ee7ca6b7dfe11fe2d4cae3fa1efde",
+    "hash": "09a279b8a75c8e8d2bb93270c33af504",
+    "content-hash": "884b27b4b5efaa8d3d4471c15ac80f84",
     "packages": [
         {
             "name": "beberlei/DoctrineExtensions",
-            "version": "v1.0.8",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "5e4eeb632b18da7a848b9b470ff1e688200c0d4e"
+                "reference": "d21b82cd305bd06a97a9befa2c0c750d64c53ebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/5e4eeb632b18da7a848b9b470ff1e688200c0d4e",
-                "reference": "5e4eeb632b18da7a848b9b470ff1e688200c0d4e",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/d21b82cd305bd06a97a9befa2c0c750d64c53ebb",
+                "reference": "d21b82cd305bd06a97a9befa2c0c750d64c53ebb",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +67,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2016-03-12 14:13:55"
+            "time": "2016-03-24 18:00:50"
         },
         {
             "name": "behat/transliterator",
@@ -1321,7 +1321,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/fb2da6655761718bb61c1367ceafd9ff4f4bccc1",
+                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/3f9d4b06df6a9554cfef0654ad0ea5ee6d737350",
                 "reference": "fb2da6655761718bb61c1367ceafd9ff4f4bccc1",
                 "shasum": ""
             },
@@ -1433,6 +1433,56 @@
             "time": "2014-07-12 07:13:19"
         },
         {
+            "name": "maxmind/geoip",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IDCI-Consulting/Maxmind-GeoIp.git",
+                "reference": "ff98e9238795bd2330b0aaf8d07b6475d0b8a473"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IDCI-Consulting/Maxmind-GeoIp/zipball/ff98e9238795bd2330b0aaf8d07b6475d0b8a473",
+                "reference": "ff98e9238795bd2330b0aaf8d07b6475d0b8a473",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Maxmind\\": "src/Maxmind/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Sébastien Roch",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Ariel Ferrandini",
+                    "email": "arielferrandini@gmail.com",
+                    "homepage": "http://ferrandini.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Gabriel BONDAZ",
+                    "email": "gabriel.bondaz@idci-consulting.fr",
+                    "role": "Developer"
+                }
+            ],
+            "description": "MaxMind GeoIP Symfony2 Bundle",
+            "keywords": [
+                "maxmind geoip"
+            ],
+            "time": "2016-03-03 15:50:58"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.18.1",
             "source": {
@@ -1511,6 +1561,53 @@
             "time": "2016-03-13 16:08:35"
         },
         {
+            "name": "mustangostang/spyc",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mustangostang/spyc.git",
+                "reference": "dc4785b4d7227fd9905e086d499fb8abfadf9977"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mustangostang/spyc/zipball/dc4785b4d7227fd9905e086d499fb8abfadf9977",
+                "reference": "dc4785b4d7227fd9905e086d499fb8abfadf9977",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.5.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Spyc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT License"
+            ],
+            "authors": [
+                {
+                    "name": "mustangostang",
+                    "email": "vlad.andersen@gmail.com"
+                }
+            ],
+            "description": "A simple YAML loader/dumper class for PHP",
+            "homepage": "https://github.com/mustangostang/spyc/",
+            "keywords": [
+                "spyc",
+                "yaml",
+                "yml"
+            ],
+            "time": "2013-02-21 10:52:01"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v1.4.1",
             "source": {
@@ -1557,6 +1654,57 @@
                 "random"
             ],
             "time": "2016-03-18 20:34:03"
+        },
+        {
+            "name": "piwik/device-detector",
+            "version": "3.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/piwik/device-detector.git",
+                "reference": "4f4c2b0ce412fb1b8f679a7c82190783ba697d4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/piwik/device-detector/zipball/4f4c2b0ce412fb1b8f679a7c82190783ba697d4c",
+                "reference": "4f4c2b0ce412fb1b8f679a7c82190783ba697d4c",
+                "shasum": ""
+            },
+            "require": {
+                "mustangostang/spyc": "*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "~1.7",
+                "phpunit/phpunit": "4.1.*"
+            },
+            "suggest": {
+                "doctrine/cache": "Can directly be used for caching purpose"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DeviceDetector\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "The Piwik Team",
+                    "email": "hello@piwik.org",
+                    "homepage": "http://piwik.org/the-piwik-team/"
+                }
+            ],
+            "description": "The Universal Device Detection library, that parses User Agents and detects devices (desktop, tablet, mobile, tv, cars, console, etc.), clients (browsers, media players, mobile apps, feed readers, libraries, etc), operating systems, devices, brands and models.",
+            "homepage": "http://piwik.org",
+            "keywords": [
+                "devicedetection",
+                "parser",
+                "useragent"
+            ],
+            "time": "2016-03-31 20:28:09"
         },
         {
             "name": "psr/log",
@@ -1753,6 +1901,46 @@
             ],
             "description": "A security checker for your composer.lock",
             "time": "2015-11-07 08:07:40"
+        },
+        {
+            "name": "snowplow/referer-parser",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/snowplow/referer-parser.git",
+                "reference": "5ce872b60999c63039723959a45928ef1196f03d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/snowplow/referer-parser/zipball/5ce872b60999c63039723959a45928ef1196f03d",
+                "reference": "5ce872b60999c63039723959a45928ef1196f03d",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.*",
+                "symfony/yaml": "*"
+            },
+            "suggest": {
+                "symfony/yaml": "Support for YAML configuration file"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Snowplow\\RefererParser": "php/src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lars Strojny",
+                    "email": "lars@strojny.net"
+                }
+            ],
+            "description": "Snowplow Refer(r)er parser for PHP",
+            "time": "2016-01-29 16:43:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",

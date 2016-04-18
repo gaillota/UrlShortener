@@ -25,7 +25,10 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "jms/di-extra-bundle": "dev-master",
         "endroid/qrcode-bundle": "^1.6",
-        "beberlei/DoctrineExtensions": "^1.0"
+        "beberlei/DoctrineExtensions": "^1.0",
+        "maxmind/geoip": "^1.1",
+        "piwik/device-detector": "^3.6",
+        "snowplow/referer-parser": "^0.2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

@@ -1,5 +1,3 @@
-
-
-edit_colors:
+ag_user_user_edit_colors:
     path:     edit-colors
-    defaults: { _controller: AGUserBundle:ProfileController:editColors }
+    defaults: { _controller: AGUserBundle:Custom:editColors }

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * User
+ * Link
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AG\UserBundle\Repository\UserRepository")
@@ -30,7 +30,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="foreground_color", type="string", length=8)
      * @Assert\Regex(
-     *     pattern="/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+     *     pattern="/^(#+)([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
      *     message="La couleur donnée ne correspond pas à une couleur hexadécimale"
      * )
      */
@@ -41,7 +41,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="background_color", type="string", length=8)
      * @Assert\Regex(
-     *     pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+     *     pattern="/^(#+)([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
      *     message="La couleur donnée ne correspond pas à une couleur hexadécimale"
      * )
      */
@@ -102,6 +102,9 @@ class User extends BaseUser
      */
     public function setForegroundColor($foregroundColor)
     {
+        if (strpos($foregroundColor, '#') !== 0)
+            $foregroundColor = '#' . $foregroundColor;
+
         $this->foregroundColor = $foregroundColor;
 
         return $this;
@@ -125,6 +128,9 @@ class User extends BaseUser
      */
     public function setBackgroundColor($backgroundColor)
     {
+        if (strpos($backgroundColor, '#') !== 0)
+            $backgroundColor = '#' . $backgroundColor;
+
         $this->backgroundColor = $backgroundColor;
 
         return $this;
@@ -138,5 +144,17 @@ class User extends BaseUser
     public function getBackgroundColor()
     {
         return $this->backgroundColor;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     * 
+     * Transform email address into username
+     * ex: antoine.gaillot@bnpparibas.com -> Antoine Gaillot
+     */
+    public function updateUsername()
+    {
+        $this->username = ucwords(preg_replace('/(\w+)\.(\w+)@(\w.+)/', '$1 $2', $this->email));
     }
 }

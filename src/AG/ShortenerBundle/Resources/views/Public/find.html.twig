@@ -1,0 +1,49 @@
+{% extends "@AGShortener/layout.html.twig" %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li class="active">Retrouver un QR Code</li>
+{% endblock %}
+
+
+{% block ag_shortener_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ fa('search') }} Retrouver un QR Code</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_label(form.token) }}
+                <div class="input-group">
+                    <div class="input-group-addon">{{ url('ag_shortener_homepage') }}</div>
+                    {{ form_widget(form.token) }}
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+        {% if link is defined %}
+            <div class="col-md-6">
+                {% if link is not null %}
+                    <div class="alert alert-success">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        Super, nous avons retrouvé votre URL ! Voici le <strong>QR Code</strong> associé :
+                    </div>
+                    <hr>
+                    <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token }), foreground_color=hex_to_rgb(app.user.foregroundColor|default('#000000')), background_color=hex_to_rgb(app.user.backgroundColor|default('#ffffff'))) }}" alt="QR Code" class="img-responsive img-thumbnail">
+                {% else %}
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        Désolé, nous n'avons pas été en mesure de retrouver votre URL...
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

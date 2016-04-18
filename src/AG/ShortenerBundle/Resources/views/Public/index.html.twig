@@ -4,7 +4,7 @@
 
 {% block ag_shortener_content %}
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-12">
             <h2>{{ fa('compress') }} Raccourcir une URL</h2>
             <hr>
         </div>
@@ -14,14 +14,17 @@
             {{ form(form) }}
         </div>
         {% if link is defined %}
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-6">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
                             <label for="short" class="control-label">{{ fa('link') }} Lien raccourci</label>
-                            <input id="short" type="text" class="form-control" readonly="readonly" value="{{ url('ag_shortener_click_redirect', {token: link.token }) }}">
+                            <input id="short" type="text" class="form-control" readonly="readonly" value="{{ url('ag_shortener_redirect', {token: link.token }) }}">
                         </div>
-                        <a href="{{ path('ag_shortener_click_redirect', { token: link.token }) }}" class="btn btn-success" target="_blank">
+                        {% if app.user %}
+                            <a href="{{ path('ag_shortener_links_edit', { id: link.id }) }}" class="btn btn-warning">{{ fa('edit') }} Editer</a>
+                        {% endif %}
+                        <a href="{{ path('ag_shortener_redirect', { token: link.token }) }}" class="btn btn-success" target="_blank">
                             Tester {{ fa('arrow-right') }}
                         </a>
                     </div>
@@ -34,12 +37,42 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h5><strong>{{ fa('qrcode') }} QR Code</strong></h5>
-                        <img src="{{ qrcode_data_uri(url('ag_shortener_scan_redirect', {token: link.token })) }}" alt="QR" class="img-responsive center-block img-thumbnail">
+                        <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token }), foreground_color=hex_to_rgb(app.user.foregroundColor|default('#000000')), background_color=hex_to_rgb(app.user.backgroundColor|default('#ffffff'))) }}" alt="QR" class="img-responsive img-thumbnail">
                     </div>
                 </div>
             </div>
         {% endif %}
     </div>
+    {% if links is not null and links is not empty %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Lien</th>
+                    <th>Crée à</th>
+                    <th>URL courte</th>
+                    <th>Clics</th>
+                    <th></th>
+                </tr>
+                </thead>
+                {% for link in links %}
+                    <tr>
+                        <td style="max-width: 250px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ link.url }}</td>
+                        <td>{{ date_format(link.createdAt) }}</td>
+                        <td>{{ url('ag_shortener_redirect', {token: link.token }) }}</td>
+                        <td>{{ link.clicks|length }}</td>
+                        <td>
+                            <div class="pull-right">
+                                <a href="{{ path('ag_shortener_links_details', { id: link.id }) }}" class="btn btn-info btn-xs">{{ fa('line-chart') }} Voir détails</a>
+                                <a href="{{ path('ag_shortener_links_edit', { id: link.id }) }}" class="btn btn-warning btn-xs">{{ fa('edit') }} Editer</a>
+                                <a href="{{ path('ag_shortener_links_remove', { id: link.id }) }}" class="btn btn-danger btn-xs">{{ fa('trash') }}</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

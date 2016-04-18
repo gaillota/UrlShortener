@@ -1,6 +1,7 @@
 <?php
 
 namespace AG\ShortenerBundle\Repository;
+use AG\UserBundle\Entity\User;
 
 /**
  * LinkRepository
@@ -10,13 +11,11 @@ namespace AG\ShortenerBundle\Repository;
  */
 class LinkRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAllQuery($userId)
+    public function findAllQuery(User $user)
     {
         return $this->createQueryBuilder('l')
             ->where('l.owner = :user')
-            ->setParameter('user', $userId)
-            ->andWhere('s.date > :lastMonth')
-            ->setParameter('lastMonth', new \DateTime('last month'))
+            ->setParameter('user', $user)
             ->orderBy('l.createdAt', 'DESC')
             ->getQuery();
     }

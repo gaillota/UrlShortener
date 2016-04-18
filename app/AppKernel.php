@@ -14,24 +14,27 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(), //@Template
 
             // FOS
             new FOS\UserBundle\FOSUserBundle(),
 
             // JMS
-            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
-            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\AopBundle\JMSAopBundle(), // Needed for DiExtra
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this), //$request injection
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(), //@Secure && hasRole('ROLE')
 
             // Doctrine
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(), //@Blameable
 
             // KNP
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             // Endroid QR Code
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
+
+            // Maxmind GeoIP
+            new Maxmind\Bundle\GeoipBundle\MaxmindGeoipBundle(),
 
             // Application
             new AG\ShortenerBundle\AGShortenerBundle(),
@@ -51,5 +54,11 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
+    public function __construct($environment, $debug)
+    {
+        date_default_timezone_set('Europe/Paris');
+        parent::__construct($environment, $debug);
     }
 }

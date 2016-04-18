@@ -33,6 +33,34 @@ class Click
     private $date;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=255)
+     */
+    private $ip;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=255, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="browser", type="string", length=255, nullable=true)
+     */
+    private $browser;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="referer", type="string", length=255)
+     */
+    private $referer;
+
+    /**
      * @var Link
      *
      * @ORM\ManyToOne(targetEntity="Link", inversedBy="clicks")
@@ -57,6 +85,7 @@ class Click
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->referer = "unknown";
     }
 
     /**
@@ -139,5 +168,97 @@ class Click
     public function getLink()
     {
         return $this->link;
+    }
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     * @return Click
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     * @return Click
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string 
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Set browser
+     *
+     * @param string $browser
+     * @return Click
+     */
+    public function setBrowser($browser)
+    {
+        $this->browser = $browser;
+
+        return $this;
+    }
+
+    /**
+     * Get browser
+     *
+     * @return string 
+     */
+    public function getBrowser()
+    {
+        return $this->browser;
+    }
+
+    /**
+     * Set referer
+     *
+     * @param string $referer
+     * @return Click
+     */
+    public function setReferer($referer)
+    {
+        $this->referer = $referer;
+
+        return $this;
+    }
+
+    /**
+     * Get referer
+     *
+     * @return string 
+     */
+    public function getReferer()
+    {
+        return $this->referer;
     }
 }

@@ -3,13 +3,13 @@ ag_shortener_admin:
     defaults: { _controller: AGShortenerBundle:Admin:index }
 
 ag_shortener_admin_details:
-    path: /{id}/details
-    defaults: { _controller: AGShortenerBundle:Admin:details }
+    path: /liens/{id}/details
+    defaults: { _controller: AGShortenerBundle:Link:details }
     requirements:
         id: \d+
 
 ag_shortener_admin_remove:
-    path: /{id}/remove
-    defaults: { _controller: AGShortenerBundle:Admin:remove }
+    path: /liens/{id}/remove
+    defaults: { _controller: AGShortenerBundle:Link:remove }
     requirements:
         id: \d+

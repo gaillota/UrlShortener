@@ -2,27 +2,32 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li class="active">Réinitialiser mon mot de passe</li>
+{% endblock %}
+
 {% block ag_user_content %}
     <div class="row">
         <div class="col-md-12">
             <h2>{{ fa('refresh') }} Réinitialiser mon mot de passe</h2>
             <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <form action="{{ path('fos_user_resetting_send_email') }}" method="POST">
-                        <div class="form-group">
-                            {% if invalid_username is defined %}
-                                <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
-                            {% endif %}
-                            <label for="username" class="control-label">{{ 'resetting.request.username'|trans }}</label>
-                            <input type="text" id="username" name="username" class="form-control" required="required" />
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-default" value="{{ 'resetting.request.submit'|trans }}" />
-                        </div>
-                    </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST">
+                <div class="form-group">
+                    {% if invalid_username is defined %}
+                        <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</p>
+                    {% endif %}
+                    <label for="username" class="control-label">{{ 'resetting.request.username'|trans }}</label>
+                    <input type="text" id="username" name="username" class="form-control" required="required" />
                 </div>
-            </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default" value="{{ 'resetting.request.submit'|trans }}" />
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}

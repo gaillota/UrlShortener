@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>{% block title %}URL Shortener{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -31,8 +31,8 @@
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}
-            <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src="{{ asset('js/jquery-1.11.3.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.min.js') }}"></script>
             <script type="text/javascript">
                 $(function() {
                     window.setTimeout(function() {

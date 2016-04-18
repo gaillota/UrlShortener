@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
@@ -14,6 +15,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="link")
  * @ORM\Entity(repositoryClass="AG\ShortenerBundle\Repository\LinkRepository")
+ * @UniqueEntity(
+ *     fields="token",
+ *     message="Ce token est malheureusement déjà utilisé..."
+ * )
  */
 class Link
 {
@@ -37,7 +42,10 @@ class Link
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=2083)
-     * @Assert\Url()
+     * @Assert\Regex(
+     *     pattern="/^(https?:\/\/)(([\da-z\.-]+)\.){2,}echonet\/?(.)*$/",
+     *     message="L'URL donnée n'est pas une URL autorisée. Seules les URLs internes sont autorisées. Ex: http://b2e.group.echonet/"
+     * )
      */
     private $url;
 
@@ -55,11 +63,6 @@ class Link
     private $clicks;
 
     /**
-     * @ORM\OneToMany(targetEntity="Scan", mappedBy="link")
-     */
-    private $scans;
-
-    /**
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="AG\UserBundle\Entity\User", inversedBy="links")
@@ -75,7 +78,6 @@ class Link
     {
         $this->createdAt = new \DateTime();
         $this->clicks = new ArrayCollection();
-        $this->scans = new ArrayCollection();
     }
 
     /**
@@ -214,38 +216,5 @@ class Link
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * Add scans
-     *
-     * @param Scan $scans
-     * @return Link
-     */
-    public function addScan(Scan $scans)
-    {
-        $this->scans[] = $scans;
-
-        return $this;
-    }
-
-    /**
-     * Remove scans
-     *
-     * @param Scan $scans
-     */
-    public function removeScan(Scan $scans)
-    {
-        $this->scans->removeElement($scans);
-    }
-
-    /**
-     * Get scans
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getScans()
-    {
-        return $this->scans;
     }
 }

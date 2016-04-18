@@ -13,23 +13,27 @@
             <ul class="nav navbar-nav">
                 {% if app.user %}
                     <li>
-                        <a href="{{ path('ag_shortener_homepage') }}">{{ fa('compress') }} Raccourcir un lien</a>
+                        <a href="{{ path('ag_shortener_homepage') }}">{{ fa('compress') }} Raccourcir une URL</a>
                     </li>
                     <li>
-                        <a href="{{ path('ag_shortener_my_links') }}">{{ fa('list') }} Mes liens</a>
+                        <a href="{{ path('ag_shortener_my_links') }}">{{ fa('link') }} Mes URLs</a>
                     </li>
                 {% endif %}
+                <li>
+                    <a href="{{ path('ag_shortener_find') }}">{{ fa('search') }} Retrouver un QR Code</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if app.user %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            {{ fa('user') }} <i>{{ app.user }}</i> <span class="caret"></span>
+                            <i>{{ app.user }}</i> <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('fos_user_profile_show') }}">{{ fa('user') }} Mon compte</a></li>
-                            <li><a href="{{ path('fos_user_change_password') }}">{{ fa('lock') }} Changer mot de passe</a></li>
+                            <li><a href="{{ path('fos_user_change_password') }}">{{ fa('unlock-alt') }} Changer mot de passe</a></li>
                             {% if is_granted('ROLE_ADMIN') %}
+                                <li class="divider"></li>
                                 <li><a href="{{ path('ag_shortener_admin') }}">{{ fa('terminal') }} Administration</a></li>
                             {% endif %}
                             <li class="divider"></li>

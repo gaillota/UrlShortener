@@ -1,5 +1,5 @@
 services:
     ag_shortener.chart_data:
-        class: AG\ShortenerBundle\ChartData\LinkChartData
+        class: AG\ShortenerBundle\ChartData\LinkData
         arguments:
             - @doctrine.orm.entity_manager

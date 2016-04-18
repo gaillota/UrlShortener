@@ -13,3 +13,13 @@ services:
         class: AG\ShortenerBundle\Twig\HexToRgbTransformer
         tags:
             - { name: twig.extension }
+
+    date_format_extension:
+        class: AG\ShortenerBundle\Twig\DateFormatter
+        tags:
+            - { name: twig.extension }
+
+    ag_user.form.registration:
+            class: AG\UserBundle\Form\RegistrationType
+            tags:
+                - { name: form.type, alias: ag_shortener_user_registration }

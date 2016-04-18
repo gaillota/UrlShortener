@@ -1,0 +1,142 @@
+{% extends '@AGShortener/layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li><a href="{{ path('ag_shortener_my_links') }}">Mes liens</a></li>
+    <li class="active">Détails {{ link.token }}</li>
+{% endblock %}
+
+{% block ag_shortener_content %}
+    <div class="row">
+        <div class="col-md-6">
+            <h3>{{ fa('list') }} Détails</h3>
+            <hr>
+            <h4>{{ fa('globe') }} URL</h4>
+            <p>
+                <a href="{{ link.url }}" target="_blank">
+                    {{ link.url }}
+                </a>
+            </p>
+            <h4>{{ fa('link') }} Lien</h4>
+            <p>
+                <a href="{{ url('ag_shortener_redirect', { token: link.token }) }}" target="_blank">
+                    {{ url('ag_shortener_redirect', { token: link.token }) }}
+                </a>
+            </p>
+            <h4>{{ fa('hand-o-up') }} Clics</h4>
+            <p>
+                {{ link.clicks|length }} clic{% if link.clicks|length > 1 %}s{% endif %}
+            </p>
+            <a href="{{ path('ag_shortener_links_edit', { id: link.id }) }}" class="btn btn-warning">{{ fa('edit') }} Editer</a>
+            <h4>{{ fa('qrcode') }} QR Code</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token }), foreground_color=hex_to_rgb(app.user.foregroundColor|default('#000000')), background_color=hex_to_rgb(app.user.backgroundColor|default('#ffffff'))) }}" alt="QR" class="img-responsive img-thumbnail">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>{{ fa('laptop') }} Navigateur</h3>
+            <hr>
+            <div id="browsers" style="width: 100%; height: 400px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <div id="timeline" style="width: 100%; height: 400px;"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/highcharts.js') }}"></script>
+    <script src="{{ asset('js/highcharts_theme.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#timeline').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Analytics'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        day: '%e %b',
+                        week: '%e %b',
+                        month: '%b %Y'
+                    }
+//                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: true
+                    }
+                },
+                series: [{
+                    name: 'Clics',
+                    pointInterval: 24 * 3600 * 1000,
+                    pointStart: Date.UTC({{ chartData.chartStart|date('Y, m-1, d') }}),
+                    tooltip: {
+                        dateTimeLabelFormats: {day:"%e %B %Y"},
+                        valueDecimals: 0,
+                        valueSuffix: ' clics'
+                    },
+                    data: [{{ chartData.clicks }}]
+                }]
+            });
+            $('#browsers').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: 0,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Navigateurs',
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    y: 40
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        dataLabels: {
+                            enabled: true,
+                            distance: -50,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'white',
+                                textShadow: '0px 1px 2px black'
+                            }
+                        },
+                        startAngle: -90,
+                        endAngle: 90,
+                        center: ['50%', '70%']
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Répartition des navigateurs',
+                    innerSize: '50%',
+                    data: [
+                            ['Chrome', 4]
+                    ]
+                }]
+            });
+        });
+    </script>
+{% endblock %}

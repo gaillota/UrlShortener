@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: lamp_mysql
+    database_port: null
+    database_name: goo
+    database_user: goo
+    database_password: 6xQqV7Q-
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: c3a7e57dfde5fb407c20c7c9df9c8a46db683c6d

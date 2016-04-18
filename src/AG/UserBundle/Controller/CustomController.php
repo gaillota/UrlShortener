@@ -2,11 +2,12 @@
 
 namespace AG\UserBundle\Controller;
 
+use AG\UserBundle\Form\ColorEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use AG\UserBundle\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class ProfileController extends Controller
+class CustomController extends Controller
 {
     /**
      * @var Request
@@ -15,14 +16,14 @@ class ProfileController extends Controller
 
     /**
      * @return array
+     * @Template
      */
     public function editColorsAction()
     {
-        $form = $this->createForm(UserType::class, $this->getUser());
+        $form = $this->createForm(ColorEditType::class, $this->getUser());
         $form->handleRequest($this->request);
         if ($form->isValid()) {
             $this->get('fos_user.user_manager')->updateUser($this->getUser());
-            return $this->redirectToRoute('fos_user_profile_show');
         }
 
         return array(

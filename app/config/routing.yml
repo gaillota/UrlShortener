@@ -30,3 +30,12 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+#
+# Core function (must be put at the end or will be matched everytime)
+#
+ag_shortener_redirect:
+    path: /{token}
+    defaults: { _controller: AGShortenerBundle:Public:clickRedirect }
+    requirements:
+        token: "[a-zA-Z0-9]+"

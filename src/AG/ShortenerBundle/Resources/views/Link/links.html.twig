@@ -1,0 +1,71 @@
+{% extends '@AGShortener/layout.html.twig' %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li class="active">Mes liens</li>
+{% endblock %}
+
+{% block ag_shortener_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ fa('list') }} Mes liens <small>{{ links.getTotalItemCount }}</small></h2>
+            <hr>
+        </div>
+    </div>
+    {% if links is not empty %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Clics</th>
+                    <th>URL</th>
+                    <th>Lien</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+                </thead>
+                {% for link in links %}
+                    <tr>
+                        <td>
+                            {{ link.clicks|length }}
+                        </td>
+                        <td style="max-width: 250px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+                            <a href="{{ link.url }}" target="_blank">
+                                {{ link.url }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ url('ag_shortener_redirect', { token: link.token }) }}" target="_blank">
+                                {{ url('ag_shortener_redirect', { token: link.token }) }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ date_format(link.createdAt) }}
+                        </td>
+                        <td style="min-width: 130px;">
+                            <div class="pull-right">
+                                <a href="{{ path('ag_shortener_links_details', { id: link.id }) }}" class="btn btn-xs btn-info">
+                                    {{ fa('line-chart') }}<span class="hidden-xs"> Voir détails</span>
+                                </a>
+                                <a href="{{ path('ag_shortener_links_edit', { id: link.id }) }}" class="btn btn-warning btn-xs">{{ fa('edit') }} Editer</a>
+                                <a href="{{ path('ag_shortener_links_remove', { id: link.id }) }}" class="btn btn-xs btn-danger">
+                                    {{ fa('trash') }}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        Aucun lien.
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <nav class="naviguation text-center">
+            {{ knp_pagination_render(links) }}
+        </nav>
+    {% else %}
+        <hr>
+        <h5 class="text-center">Aucun lien pour le moment...</h5>
+    {% endif %}
+{% endblock %}

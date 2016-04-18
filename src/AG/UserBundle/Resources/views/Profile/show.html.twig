@@ -22,37 +22,40 @@
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <i class="fa fa-user"></i> {{ 'profile.show.username'|trans }} : {{ user.username }}
+                        {{ fa('user') }} {{ 'profile.show.username'|trans }} : {{ user.username }}
                     </li>
                     <li class="list-group-item">
-                        <i class="fa fa-envelope"></i> {{ 'profile.show.email'|trans }} : {{ user.email }}
+                        {{ fa('envelope') }} {{ 'profile.show.email'|trans }} : {{ user.email }}
                     </li>
                 </ul>
             </div>
             <div class="row">
                 <div class="col-xs-6">
-                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-default">
-                        <i class="fa fa-edit"></i> Editer mes infos
+                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-warning">
+                        {{ fa('edit') }} Editer mes infos
                     </a>
                 </div>
                 <div class="col-xs-6">
-                    <a href="{{ path('fos_user_change_password') }}" class="btn btn-default pull-right">
-                        <i class="fa fa-lock"></i> Changer mon mot de passe
+                    <a href="{{ path('fos_user_change_password') }}" class="btn btn-danger pull-right">
+                        {{ fa('unlock-alt') }} Changer mon mot de passe
                     </a>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="panel panel-warning">
+            <div class="panel panel-success">
                 <div class="panel-heading">
-                    {{ fa('cogs') }} Préférences
+                    {{ fa('cogs') }} Préférences <a href="{{ path('ag_user_user_edit_colors') }}" class="btn btn-warning btn-xs pull-right">{{ fa('edit') }} Editer</a>
                 </div>
                 <div class="panel-body">
-                    <p>Vous pouvez personnaliser vous-même les couleurs des QR Codes générés pour chaque lien.</p>
+                    Vous pouvez personnaliser vous-même les couleurs des QR Codes.
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        {{ fa('picker') }} Foreground : <span class="label" style="color: #{{ user.foregroundColor }};"></span>
+                        {{ fa('pencil') }} Couleur premier plan : <span class="badge" style="border: 1px solid #333333; background-color: {{ user.foregroundColor }}; float: none;"> </span>
+                    </li>
+                    <li class="list-group-item">
+                        {{ fa('pencil-square') }} Couleur arrière-plan : <span class="badge" style="border: 1px solid #333333; background-color: {{ user.backgroundColor }}; float: none;"> </span>
                     </li>
                 </ul>
             </div>

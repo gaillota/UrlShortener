@@ -1,0 +1,21 @@
+ag_shortener_my_links:
+    path: /liens
+    defaults: { _controller: AGShortenerBundle:Link:links }
+
+ag_shortener_links_details:
+    path: /liens/{id}
+    defaults: { _controller: AGShortenerBundle:Link:details }
+    requirements:
+        id: \d+
+
+ag_shortener_links_edit:
+    path: /liens/{id}/editer
+    defaults: { _controller: AGShortenerBundle:Link:edit }
+    requirements:
+        id: \d+
+
+ag_shortener_links_remove:
+    path: /liens/{id}/supprimer
+    defaults: { _controller: AGShortenerBundle:Link:remove }
+    requirements:
+        id: \d+

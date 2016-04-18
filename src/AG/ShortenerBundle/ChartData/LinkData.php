@@ -6,7 +6,7 @@ use AG\ShortenerBundle\Entity\Link;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
 
-class LinkChartData
+class LinkData
 {
     /**
      * @var EntityManager
@@ -19,18 +19,18 @@ class LinkChartData
     private $link;
 
     /**
-     * @var  null|\DateTime
+     * @var \DateTime
      */
     private $chartStart;
 
     /**
-     * @var null|\DateTime
+     * @var \DateTime
      */
     private $chartEnd;
 
-    private $clicks =  null;
-
-    private $scans = null;
+    private $clicks = null;
+    
+    private $browsers = null;
 
     /**
      * ClicksData constructor.
@@ -45,10 +45,12 @@ class LinkChartData
     public function computeData()
     {
         $this->computeClicks();
-        $this->computeScans();
+        $this->computeBrowsers();
     }
 
     /**
+     * Link on which analytics will be compute
+     * 
      * @param Link $link
      */
     public function setLink(Link $link)
@@ -64,46 +66,18 @@ class LinkChartData
         return $this->chartStart;
     }
 
-    public function setClicks()
-    {
-        if (!$this->link)
-            return;
-
-        $clicks = $this->em->getRepository('AGShortenerBundle:Click')->getClicks($this->link);
-        $this->clicks = $clicks;
-
-        if (empty($clicks))
-            return;
-
-        $this->computeDuration($clicks);
-    }
-
     public function getClicks()
     {
         return implode(',', $this->clicks);
     }
 
-    public function setScans()
+    public function getBrowsers()
     {
-        if (!$this->link)
-            return;
-
-        $scans = $this->em->getRepository('AGShortenerBundle:Scan')->getScans($this->link);
-        $this->scans = $scans;
-
-        if (empty($scans))
-            return;
-
-        $this->computeDuration($scans);
-    }
-
-    public function getScans()
-    {
-        return implode(',', $this->scans);
+        return $this->browsers;
     }
 
     /**
-     * Helpers
+     * Computation functions
      */
 
     /**
@@ -123,14 +97,20 @@ class LinkChartData
      */
     private function computeClicks()
     {
+        if (!$this->link)
+            return;
+
+        $clicksData = $this->em->getRepository('AGShortenerBundle:Click')->getClicks($this->link);
+
+        if (empty($clicksData))
+            return;
+
+        $this->computeDuration($clicksData);
+        
         // Get length of chart
         $length = $this->chartEnd->diff($this->chartStart)->d;
 
-
-
-        // Store clicks
-        $clicksData = $this->clicks;
-        // Create an array filled with 0 (+1 for if no clicks today)
+        // Create an array filled with 0 (+1 for if no clicks until now)
         $clicks = array_fill(0, $length + 1, 0);
 
         foreach ($clicksData as $click) {
@@ -138,26 +118,41 @@ class LinkChartData
             $clicks[$this->chartStart->diff($this->getDateTime($click), true)->d] = intval($click['clickCount']);
         }
 
+        // Add a value of 0 before and after the only date if needed
+        if ($length == 0) {
+            $this->chartStart->sub(new \DateInterval('P1D'));
+            array_unshift($clicks, 0);
+            array_push($clicks, 0);
+        }
+
         $this->clicks = $clicks;
     }
 
-    /**
-     * Compute scans data and fill array accordingly
-     */
-    private function computeScans()
+    private function computeBrowsers()
     {
-        // Get length of chart
-        $length = $this->chartEnd->diff($this->chartStart)->d;
+        if (!$this->link)
+            return;
+        
+        $browsersData = $this->em->getRepository('AGShortenerBundle:Click')->getBrowsers($this->link);
+        
+        if (empty($browsersData))
+            return;
 
-        $scansData = $this->scans;
-        $scans = array_fill(0, $length + 1, 0);
+        $browsers = array();
 
-        foreach ($scansData as $scan) {
-            $scans[$this->chartStart->diff($this->getDateTime($scan), true)->d] = intval($scan['scanCount']);
+        foreach ($browsersData as $browser) {
+            $browsers[] = array(
+                $browser[0]['browser'],
+                $browser['browserCount']
+            );
         }
 
-        $this->scans = $scans;
+        $this->browsers = $browsers;
     }
+
+    /**
+     * Helpers
+     */
 
     /**
      * @param \DateTime $date1

@@ -3,11 +3,12 @@
 namespace AG\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class ColorEditType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,10 +18,19 @@ class UserType extends AbstractType
     {
         $builder
             ->add('foregroundColor', TextType::class, array(
-                'label' => 'Couleur premier plan'
+                'label' => 'Premier plan',
+                'attr' => array(
+                    'class' => 'jscolor'
+                )
             ))
             ->add('backgroundColor', TextType::class, array(
-                'label' => 'Couleur arrière plan'
+                'label' => 'Arrière-plan',
+                'attr' => array(
+                    'class' => 'jscolor'
+                )
+            ))
+            ->add('save', SubmitType::class, array(
+                'label' => 'Enregistrer'
             ))
         ;
     }

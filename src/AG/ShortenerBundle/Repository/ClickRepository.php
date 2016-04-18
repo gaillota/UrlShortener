@@ -25,4 +25,16 @@ class ClickRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getBrowsers(Link $link)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->addSelect('COUNT(c.browser) browserCount')
+            ->where('c.link = :link')
+            ->setParameter('link', $link)
+            ->groupBy('c.browser')
+        ;
+        
+        return $qb->getQuery()->getArrayResult();
+    }
 }
