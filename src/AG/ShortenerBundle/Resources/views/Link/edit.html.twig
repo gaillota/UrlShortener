@@ -34,7 +34,7 @@
             {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
             <h5><strong>{{ fa('qrcode') }} QR Code</strong></h5>
             <img src="{{ qrcode_data_uri(url('ag_shortener_redirect', {token: link.token }), foreground_color=hex_to_rgb(app.user.foregroundColor|default('#000000')), background_color=hex_to_rgb(app.user.backgroundColor|default('#ffffff'))) }}" alt="QR Code" class="img-responsive img-thumbnail">
         </div>

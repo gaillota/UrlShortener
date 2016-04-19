@@ -11,6 +11,7 @@
         <div class="col-md-6">
             <h3>{{ fa('list') }} Détails</h3>
             <hr>
+            <a href="{{ path('ag_shortener_links_edit', { id: link.id }) }}" class="btn btn-warning pull-right">{{ fa('edit') }} Editer</a>
             <h4>{{ fa('globe') }} URL</h4>
             <p>
                 <a href="{{ link.url }}" target="_blank">
@@ -27,7 +28,6 @@
             <p>
                 {{ link.clicks|length }} clic{% if link.clicks|length > 1 %}s{% endif %}
             </p>
-            <a href="{{ path('ag_shortener_links_edit', { id: link.id }) }}" class="btn btn-warning">{{ fa('edit') }} Editer</a>
             <h4>{{ fa('qrcode') }} QR Code</h4>
             <div class="row">
                 <div class="col-md-4">
@@ -36,15 +36,14 @@
             </div>
         </div>
         <div class="col-md-6">
-            <h3>{{ fa('laptop') }} Navigateur</h3>
+            <h3>{{ fa('laptop') }} Navigateurs</h3>
             <hr>
             <div id="browsers" style="width: 100%; height: 400px;"></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <hr>
-            <div id="timeline" style="width: 100%; height: 400px;"></div>
+            <div id="timeline" style="width: 100%; height: 400px; margin-top: 20px;"></div>
         </div>
     </div>
 {% endblock %}
@@ -60,7 +59,7 @@
                     type: 'line'
                 },
                 title: {
-                    text: 'Analytics'
+                    text: 'Timeline des clics'
                 },
                 xAxis: {
                     type: 'datetime',
@@ -69,7 +68,6 @@
                         week: '%e %b',
                         month: '%b %Y'
                     }
-//                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
                 yAxis: {
                     min: 0,
@@ -91,8 +89,7 @@
                     pointStart: Date.UTC({{ chartData.chartStart|date('Y, m-1, d') }}),
                     tooltip: {
                         dateTimeLabelFormats: {day:"%e %B %Y"},
-                        valueDecimals: 0,
-                        valueSuffix: ' clics'
+                        valueDecimals: 0
                     },
                     data: [{{ chartData.clicks }}]
                 }]
@@ -101,40 +98,33 @@
                 chart: {
                     plotBackgroundColor: null,
                     plotBorderWidth: 0,
-                    plotShadow: false
+                    plotShadow: false,
+                    type: 'pie'
                 },
                 title: {
-                    text: 'Navigateurs',
-                    align: 'center',
-                    verticalAlign: 'middle',
-                    y: 40
+                    text: '% Navigateurs'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                 },
                 plotOptions: {
                     pie: {
+                        allowPointSelect: true,
+                        cursoir: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            distance: -50,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
                             style: {
-                                fontWeight: 'bold',
-                                color: 'white',
-                                textShadow: '0px 1px 2px black'
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                             }
-                        },
-                        startAngle: -90,
-                        endAngle: 90,
-                        center: ['50%', '70%']
+                        }
                     }
                 },
                 series: [{
-                    type: 'pie',
                     name: 'Répartition des navigateurs',
-                    innerSize: '50%',
-                    data: [
-                            ['Chrome', 4]
-                    ]
+                    colorByPoint: true,
+//                    innerSize: '70%',
+                    data: {{ chartData.browsers|raw }}
                 }]
             });
         });

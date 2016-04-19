@@ -1,6 +1,10 @@
 #
 # Application
 #
+app_boot:
+    path: /boot
+    defaults: { _controller: AGShortenerBundle:Public:boot }
+
 ag_shortener:
     resource: "@AGShortenerBundle/Resources/config/routing.yml"
     prefix:   /

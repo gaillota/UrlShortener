@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -155,5 +156,37 @@ class PublicController extends Controller
         $this->em->flush();
 
         return $this->redirect($link->getUrl());
+    }
+
+    /**
+     * @return Response
+     */
+    public function bootAction()
+    {
+        $userManager = $this->get('fos_user.user_manager');
+
+        if (count($userManager->findUsers()) > 0) {
+            return new Response('App already booted');
+        }
+
+        if(!$this->container->hasParameter('admin.email')) {
+            return new Response('"admin.email" missing in the parameters.yml file. Please provide an email address for the first user.');
+        }
+
+        if(!$this->container->hasParameter('admin.password')) {
+            return new Response('"admin.password" missing in the parameters.yml file. Please provide a password for the first user.');
+        }
+
+        $adminUser = $userManager->createUser()
+            ->setEmail($this->container->getParameter('admin.email'))
+            ->setUsername('admin')
+            ->setPlainPassword($this->container->getParameter('admin.password'))
+            ->addRole('ROLE_ADMIN')
+            ->setEnabled(true)
+        ;
+        
+        $userManager->updateUser($adminUser);
+        
+        return new Response('First user created using credentials given in the parameters.yml file');
     }
 }

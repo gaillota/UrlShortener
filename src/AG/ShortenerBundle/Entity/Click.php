@@ -51,14 +51,14 @@ class Click
      *
      * @ORM\Column(name="browser", type="string", length=255, nullable=true)
      */
-    private $browser;
+    private $browser = 'Inconnu';
 
     /**
      * @var string
      *
      * @ORM\Column(name="referer", type="string", length=255)
      */
-    private $referer;
+    private $referer = 'Inconnu';
 
     /**
      * @var Link
@@ -85,7 +85,6 @@ class Click
     public function __construct()
     {
         $this->date = new \DateTime();
-        $this->referer = "unknown";
     }
 
     /**

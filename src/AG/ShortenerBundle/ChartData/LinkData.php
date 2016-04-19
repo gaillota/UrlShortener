@@ -28,9 +28,9 @@ class LinkData
      */
     private $chartEnd;
 
-    private $clicks = null;
+    private $clicks = array();
     
-    private $browsers = null;
+    private $browsers = array();
 
     /**
      * ClicksData constructor.
@@ -73,7 +73,7 @@ class LinkData
 
     public function getBrowsers()
     {
-        return $this->browsers;
+        return json_encode($this->browsers, JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -142,8 +142,8 @@ class LinkData
 
         foreach ($browsersData as $browser) {
             $browsers[] = array(
-                $browser[0]['browser'],
-                $browser['browserCount']
+                'name' => $browser[0]['browser'],
+                'y' => $browser['browserCount']
             );
         }
 

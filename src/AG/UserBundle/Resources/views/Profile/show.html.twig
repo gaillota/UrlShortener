@@ -15,7 +15,7 @@
 	    </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 center-block" style="float: none;">
             <div class="panel panel-info">
                 <div class="panel-heading">
 	                {{ fa('list-alt') }} Informations
@@ -42,23 +42,23 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    {{ fa('cogs') }} Préférences <a href="{{ path('ag_user_user_edit_colors') }}" class="btn btn-warning btn-xs pull-right">{{ fa('edit') }} Editer</a>
-                </div>
-                <div class="panel-body">
-                    Vous pouvez personnaliser vous-même les couleurs des QR Codes.
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        {{ fa('pencil') }} Couleur premier plan : <span class="badge" style="border: 1px solid #333333; background-color: {{ user.foregroundColor }}; float: none;"> </span>
-                    </li>
-                    <li class="list-group-item">
-                        {{ fa('pencil-square') }} Couleur arrière-plan : <span class="badge" style="border: 1px solid #333333; background-color: {{ user.backgroundColor }}; float: none;"> </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        {#<div class="col-md-6">#}
+            {#<div class="panel panel-success">#}
+                {#<div class="panel-heading">#}
+                    {#{{ fa('cogs') }} Préférences <a href="{{ path('ag_user_user_edit_colors') }}" class="btn btn-warning btn-xs pull-right">{{ fa('edit') }} Editer</a>#}
+                {#</div>#}
+                {#<div class="panel-body">#}
+                    {#Vous pouvez personnaliser vous-même les couleurs des QR Codes.#}
+                {#</div>#}
+                {#<ul class="list-group">#}
+                    {#<li class="list-group-item">#}
+                        {#{{ fa('pencil') }} Couleur premier plan : <span class="badge" style="border: 1px solid #333333; background-color: {{ user.foregroundColor }}; float: none;"> </span>#}
+                    {#</li>#}
+                    {#<li class="list-group-item">#}
+                        {#{{ fa('pencil-square') }} Couleur arrière-plan : <span class="badge" style="border: 1px solid #333333; background-color: {{ user.backgroundColor }}; float: none;"> </span>#}
+                    {#</li>#}
+                {#</ul>#}
+            {#</div>#}
+        {#</div>#}
     </div>
 {% endblock %}
