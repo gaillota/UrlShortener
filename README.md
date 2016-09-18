@@ -4,7 +4,7 @@ A simple shortener with QR Code and analytics on links
 
 ## Features
 * Shorten URL using your own domain name (the shorter the better)
-* Recover a lost QR Code if you didn't saved it
+* Recover a lost QR Code if you didn't save it
 * Create an account to keep track of your links
 * Custom your links with your own text (ex: http://shorten.er/custom)
 * Analyze the usage of each link by logging every clicks (date, browser, country, ip, etc.)
