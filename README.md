@@ -27,10 +27,10 @@ A simple shortener with QR Code and analytics on links
 2. Install dependencies
 * `composer install`
 3. Edit the `app/config/parameters.yml` file
-    * /!\ Don't forget to add `admin.email` and `admin.password` values
+    * /!\ Don't forget to edit the `admin.email` and `admin.password` values
 4. Create the database
  * `php app/console doctrine:database:create`
-5. Create the database schema
+5. Create the schema
  * `php app/console doctrine:schema:create --force`
 6. Boot the app by visiting `/boot`
 7. You're all set !
