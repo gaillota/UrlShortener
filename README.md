@@ -15,6 +15,12 @@ A simple shortener with QR Code and analytics on links
 * Composer
 * [Highcharts.com](http://www.highcharts.com)
 
+## Requirements
+* Apache or Nginx
+* PHP > 5.3.9
+* MySQL
+* Composer
+
 ## Installation
 1. Clone repository
 * `git clone https://github.com/gaillota/UrlShortener.git`
