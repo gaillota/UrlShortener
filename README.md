@@ -1,4 +1,4 @@
-UrlShortener
+Shortener
 ============
 A simple shortener with QR Code and analytics on links
 
